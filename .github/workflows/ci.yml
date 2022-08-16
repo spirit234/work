@@ -18,6 +18,22 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    #コンテナ
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -32,13 +48,13 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-  
+      
       - name: Download sqldef
         run: |
           wget https://github.com/k0kubun/sqldef/releases/download/v0.13.4/psqldef_linux_amd64.tar.gz
           tar -zxf psqldef_linux_amd64.tar.gz
           chmod +x psqldef
-      - name: run sqldef
+      - name:  sqldef
         run: |
-          ./psqldef
+          echo "CREATE TABLE users(id bigint NOT NULL PRIMARY KEY);" | ./psqldef -U postgres -W postgres -p 5432 -h localhost
 
