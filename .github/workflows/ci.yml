@@ -56,5 +56,5 @@ jobs:
           chmod +x psqldef
       - name:  sqldef
         run: |
-          echo "CREATE TABLE users(id bigint NOT NULL PRIMARY KEY);" | ./psqldef -U postgres -W postgres -p 5432 -h localhost
+          echo "CREATE TABLE users(id bigint NOT NULL PRIMARY KEY);" | ./psqldef -U ${POSTGRES_USER} -W ${POSTGRES_PASSWORD}
 
