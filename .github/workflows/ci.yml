@@ -39,7 +39,7 @@ jobs:
         run: |
           wget https://github.com/k0kubun/sqldef/releases/download/v0.13.4/psqldef_linux_amd64.tar.gz
           tar -zxf psqldef_linux_amd64.tar.gz
-          chmod -x psqldef
+          chmod +x psqldef
       - name: run sqldef
         run: |
           ./psqldef
